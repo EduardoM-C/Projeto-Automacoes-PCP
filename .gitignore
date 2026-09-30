@@ -6,3 +6,4 @@ launcher.exe
 modulos/__pycache__/
 modulos/utilidades/__pycache__/
 modulos/utilidades/automacao/__pycache__/
+.gitignore
