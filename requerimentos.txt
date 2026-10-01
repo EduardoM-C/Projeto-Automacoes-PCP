@@ -1,0 +1,6 @@
+pwinput
+bcrypt
+selenium
+rich
+webdriver_manager
+customtkinter

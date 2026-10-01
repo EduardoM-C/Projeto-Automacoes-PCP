@@ -14,7 +14,7 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from utilidades.usuarios import CAMINHO
+
 from tkinter import messagebox, Tk
 
 from rich import print as print
@@ -26,7 +26,9 @@ import customtkinter as ctk
 def options_edge() -> Options:
     options = Options()
 
-    caminho_download: str = CAMINHO/"dwns"
+    from utilidades.usuarios import CAMINHO
+    caminho_download: str = str(CAMINHO/"dwns")
+
     if not os.path.exists(caminho_download):
         os.makedirs(caminho_download)
 
@@ -39,9 +41,13 @@ def options_edge() -> Options:
         "download.directory_upgrade": True,
         # Desativa avisos de segurança sobre baixar arquivos
         "safebrowsing.enabled": True,
+        "download_bubble.partial_view_enabled": False,
     }
 
     options.add_experimental_option("prefs", preferencias)
+    options.add_argument(
+    "--disable-features=DownloadBubble,DownloadBubbleV2"
+    )
 
     # CORREÇÃO 1: Faltava retornar o objeto de opções configurado
     return options
@@ -119,7 +125,7 @@ def mostrar_mensagem(erro, mensagem):
     root.withdraw()              # Esconde a janela
     root.attributes("-topmost", True)
     root.lift()
-    root.focus_force()
+
 
     messagebox.showinfo(
         erro,
